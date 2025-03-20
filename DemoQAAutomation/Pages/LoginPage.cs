@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,49 +9,42 @@ using System.Threading.Tasks;
 
 namespace DemoQAAutomation.Pages
 {
-    public class LoginPage
+    public class LoginPage(IWebDriver driver)
     {
-        //locators
-        
-        IWebElement logInButton => driver.FindElement(By.CssSelector("a[data-testid=\"navbar-login\"]"));
-        IWebElement usernameField => driver.FindElement(By.CssSelector("input[data-testid=\"username-textbox\"]"));
-        IWebDriver driver;
-        IWebElement passwordField => driver.FindElement(By.CssSelector("input[data-testid=\"password-textbox\"]"));
-        IWebElement loginButton => driver.FindElement(By.CssSelector("button[data-testid=\"login-button\""));
+        public readonly IWebDriver driver = driver;
+        private readonly WebDriverWait wait = new(driver, TimeSpan.FromSeconds(10));
+        private readonly By usernameField = By.CssSelector("input[data-testid='username-textbox']");
+        private readonly By passwordField = By.CssSelector("input[data-testid='password-textbox']");
+        private readonly By loginButton = By.CssSelector("button[data-testid='login-button']");
+        private readonly By logInButton = By.CssSelector("a[data-testid='navbar-login']");
 
-        public LoginPage(IWebDriver driver)
-        {
-            this.driver = driver;
-        }
-
-        //methods
+        // Methods
 
         public LoginPage MainLogInButton()
         {
-            logInButton.Click();
+            wait.Until(ExpectedConditions.ElementToBeClickable(logInButton)).Click();
             return this;
         }
 
-        public LoginPage WriteTextBoxUser (string username)
+        public LoginPage WriteTextBoxUser(string username)
         {
-            //Console.WriteLine("Login with username: " + username + " and password: " + password);
-            usernameField.SendKeys("test");
-            
+            wait.Until(ExpectedConditions.ElementIsVisible(usernameField)).SendKeys(username);
             return this;
-
         }
+
         public LoginPage WriteTextBoxPass(string password)
         {
-            
-            passwordField.SendKeys("test");
+            wait.Until(ExpectedConditions.ElementIsVisible(passwordField)).SendKeys(password);
             return this;
         }
 
-        public  LoginPage ClickLogInButton()
+        public LoginPage ClickLogInButton()
         {
-            loginButton.Click();
+            wait.Until(ExpectedConditions.ElementToBeClickable(loginButton)).Click();
             return this;
         }
+    }
+}
 
        
         
