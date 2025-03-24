@@ -1,4 +1,4 @@
-﻿using DemoQAAutomation.Pages;
+using DemoQAAutomation.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
