@@ -1,4 +1,4 @@
-﻿using DemoQAAutomation.Pages;
+using DemoQAAutomation.Pages;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -16,6 +16,7 @@ namespace DemoQAAutomation.Tests
         protected IWebDriver Driver { get; private set; }
         protected ProductPage ProductPage { get;private set; }
         protected LoginPage LoginPage { get; private set; }
+        protected AddProductPage AddProductPage { get; private set; }
         [SetUp]
         public void SetUp()
         {
@@ -25,6 +26,7 @@ namespace DemoQAAutomation.Tests
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             ProductPage = new ProductPage(Driver);
             LoginPage = new LoginPage(Driver);
+            AddProductPage = new AddProductPage(Driver);
         }
         [TearDown]
         public void TearDown()
